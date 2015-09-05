@@ -1,0 +1,3 @@
+# photo_gallerey
+a simple php photo gallery. this apps will show the image file which was in exists photo directory folder.  i will try to 
+update this apps by including more feature like uploading image, download image etc...
