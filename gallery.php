@@ -1,3 +1,37 @@
+<?php
+
+if (isset($_FILES["file"]["name"])) {
+  $name = $_FILES['file']['name'];
+  //$size = $_FILES['file']['size'];
+  //$extention = $type;
+  $type = strtolower($_FILES['file']['type']);
+  $tmp_name = $_FILES['file']['tmp_name'];
+
+
+  if (isset($name)) {
+    if (!empty($name)) {
+      if (($type=='image/jpg')||($type=='image/jpeg')||($type=='image/gif')) {
+        $location = 'photos/';
+
+        if(move_uploaded_file($tmp_name, 'photos/'.$name)) {
+          echo $name.' is uploaded';
+
+        }
+      }else {
+        echo 'file must be jpg or jpeg ';
+      }
+
+
+    }else {
+      echo 'please choose a file';
+    }
+  }
+}
+
+  
+ ?>
+
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -24,8 +58,18 @@
   </head>
   <body>
     <h2>Photo gallery</h2>
+    
+      <form action="gallery.php" method="POST" enctype="multipart/form-data">
+      UPLOAD:
+      <input type="file" name="file"><br><br>
+      <input type="submit" value="submit">
+    </form>
+
       <ul>
+        <form action="gallery.php" method="POST">
 <?php
+
+
     //define location of photo image
     $photosDir = './photos';
 
@@ -59,6 +103,7 @@
         ?>
 
         <li>
+          <input type="submit" name="delete" value="Delete">
           <img src="<?php echo $photoList[$x]; ?>" height="150" width="200"/>
           <?php echo basename($photoList[$x]); ?><br>
           <?php echo round(filesize($photoList[$x])/1024) . 'KB'; ?>
@@ -69,9 +114,14 @@
     } else {
       die('ERROR: No image found');
     }
+
+
+
+
+    
 ?>
 
-
+    </form>
   </ul>
   </body>
 </html>
