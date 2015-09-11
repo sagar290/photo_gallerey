@@ -1,15 +1,16 @@
 <?php
-
+//upload image
+//check the file is selected
 if (isset($_FILES["file"]["name"])) {
+  //
   $name = $_FILES['file']['name'];
-  //$size = $_FILES['file']['size'];
-  //$extention = $type;
   $type = strtolower($_FILES['file']['type']);
   $tmp_name = $_FILES['file']['tmp_name'];
 
 
   if (isset($name)) {
     if (!empty($name)) {
+      //extention
       if (($type=='image/jpg')||($type=='image/jpeg')||($type=='image/gif')) {
         $location = 'photos/';
 
@@ -28,9 +29,7 @@ if (isset($_FILES["file"]["name"])) {
   }
 }
 
-  
  ?>
-
 
 <!DOCTYPE html>
 <html>
@@ -60,13 +59,14 @@ if (isset($_FILES["file"]["name"])) {
     <h2>Photo gallery</h2>
     
       <form action="gallery.php" method="POST" enctype="multipart/form-data">
-      UPLOAD:
+      Upload Image:
       <input type="file" name="file"><br><br>
-      <input type="submit" value="submit">
+      <input type="submit" value="Click here to Upload">
     </form>
 
       <ul>
-        <form action="gallery.php" method="POST">
+        <form action="remove.php" method="POST" >
+            <input type="submit" name="remove" value="Select image and Delete">
 <?php
 
 
@@ -91,6 +91,7 @@ if (isset($_FILES["file"]["name"])) {
           }
         }
       }
+      
       closedir($dp);
     }else {
       die('ERROR: directory dosent exists');
@@ -103,7 +104,7 @@ if (isset($_FILES["file"]["name"])) {
         ?>
 
         <li>
-          <input type="submit" name="delete" value="Delete">
+          <input type="checkbox" name="check" value="<?php echo $photoList[$x] ?>">
           <img src="<?php echo $photoList[$x]; ?>" height="150" width="200"/>
           <?php echo basename($photoList[$x]); ?><br>
           <?php echo round(filesize($photoList[$x])/1024) . 'KB'; ?>
