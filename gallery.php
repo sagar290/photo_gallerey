@@ -64,9 +64,12 @@ if (isset($_FILES["file"]["name"])) {
       <input type="submit" value="Click here to Upload">
     </form>
 
-      <ul>
-        <form action="remove.php" method="POST" >
+
+    <br><br>
+    <form action="remove.php" method="POST" >
             <input type="submit" name="remove" value="Select image and Delete">
+      <ul>
+        
 <?php
 
 
@@ -122,7 +125,8 @@ if (isset($_FILES["file"]["name"])) {
     
 ?>
 
-    </form>
-  </ul>
+    
+    </ul>
+  </form>
   </body>
 </html>
